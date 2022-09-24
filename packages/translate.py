@@ -10,19 +10,13 @@ class translator:
     def __init__(self) -> None:
         return None
 
-    def to_kinyrwanda(self, text):
+    def to_rw(self, text):
         sl = "&sl=rw"
         tl = "&tl=en"
         r = requests.get(self.api_url+ self.client + self.dt + sl + tl + "&q=" + text)
         return json.loads(r.text)[0][0][0]
-    def to_english(self, text):
+    def to_en(self, text):
         sl = "&sl=en"
         tl = "&tl=rw"
         r = requests.get(self.api_url+ self.client + self.dt + sl + tl + "&q=" + text)
         return json.loads(r.text)[0][0][0]
-
-
-if __name__ == '__main__':
-    pass
-
-    
