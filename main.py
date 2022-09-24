@@ -1,9 +1,10 @@
 from fastapi import FastAPI
+from packages import pindo
 
 app = FastAPI()
 
 
 @app.get("/")
-def read_root():
+def root():
     return {"Hello": "World"}
 
