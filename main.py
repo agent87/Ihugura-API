@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from packages import pindo
 import json
 
@@ -22,25 +22,40 @@ def root():
     return {"Hello": "World"}
 
 #SPEECH ENABLED QUERY KINYARWANDA
+@app.get("/webhook/pindo")
+def query_speech_rw() -> dict:
+    print(request)
+    return {"Hello": "World"}
+
+#SPEECH ENABLED QUERY KINYARWANDA
 @app.post("/query/speech/rw")
-def query_voice_rw() -> dict:
+def query_speech_rw() -> dict:
+    print(request)
     return {"Hello": "World"}
 
 #SPEECH ENABLED QUERY ENGLISH
 @app.post("/query/speech/en")
-def query_voice_en() -> dict:
+def query_speech_en() -> dict:
+    print(request)
     return {"Hello": "World"}
 
 #TEXT BASED QUERY KINYARWANDA
 @app.post("/query/text/rw")
-def query_text_rw(query: str, mobile: str) -> dict:
-    print(query, mobile)
-    return {"Hello": "World"}
+def query_text_rw() -> dict:
+    print(request.args.get("mobile"))
+    print(request.args.get("query"))
+    return {"Query": request.args.get("query"),
+            "mobile": request.args.get("mobile")
+    }
 
 #TEXT BASED QUERY ENGLISH
 @app.post("/query/text/en")
-def query_text_en(query: str) -> dict:
-    return {"Hello": "World"}
+def query_text_en() -> dict:
+    print(request.args.get("mobile"))
+    print(request.args.get("query"))
+    return {"Query": request.args.get("query"),
+            "mobile": request.args.get("mobile")
+    }
 
 
 if __name__ =='__main__':  

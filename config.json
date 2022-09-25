@@ -1,0 +1,6 @@
+{
+    "SECRET_KEY": "",
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///site.db",
+    "PINDO_API_KEY": "",
+    "STT_API_KEY": ""
+  }
