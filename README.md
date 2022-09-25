@@ -5,7 +5,6 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Slack][slack-shield]][slack-url]
 
 
 
@@ -19,7 +18,7 @@
   <h3 align="center">Ihugura Chatbot</h3>
 
   <p align="center">
-    A guide on how to contribute to the community website!
+    A guide on how to the Ihugura chatbot!
     <br />
     <a href="https://github.com/agent87/community.website/issues">Report Bug</a>
     ·
@@ -66,7 +65,9 @@ Please feel free to also suggest any other area you might be intrested to contri
 
 The chatbot is built using the following technologies! We welcome any suggestion on how to improve this items.
 
-[![Python][python.org]][python-url]
+* [![Python][python.org]][python-url] 
+* [![Linode][linode.com]][linode-url]  
+* [![AWS][aws.amazon.com]][aws-url] 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,3 +129,7 @@ Don't forget to give the project a star! Thanks again!
 [slack-url]: https://join.slack.com/t/mbazanlpcommunity/shared_invite/zt-1e5mxv2x2-XH25edKoZ4tFZou4SvLsQA
 [python.org]: https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white
 [python-url]: https://getbootstrap.com
+[linode.com]: https://img.shields.io/badge/Linode-00A95C?style=for-the-badge&logo=Linode&logoColor=white
+[linode-url]: https://linode.com
+[aws.amazon.com]: https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white
+[aws-url]: https://aws.amazon.com
