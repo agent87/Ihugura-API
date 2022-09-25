@@ -1,6 +1,7 @@
 from flask import Flask, request
 from packages import pindo
 import json
+import requests
 
 
 try:
@@ -19,7 +20,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI')
 #INDEX
 @app.get("/")
 def root():
-    return {"Hello": "World"}
+    return 'Welcome to the Ihugure Chatbot API!'
 
 #SPEECH ENABLED QUERY KINYARWANDA
 @app.get("/webhook/pindo")
