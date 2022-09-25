@@ -20,7 +20,8 @@ def query_voice_rw() -> dict:
 
 #TEXT BASED QUERY KINYARWANDA
 @app.post("/query/text/rw")
-def query_voice_rw(query: str) -> dict:
+def query_voice_rw(query: str, mobile: str) -> dict:
+    print(query, mobile)
     return {"Hello": "World"}
 
 #TEXT BASED QUERY ENGLISH
