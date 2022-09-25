@@ -23,7 +23,7 @@ def root():
 
 #SPEECH ENABLED QUERY KINYARWANDA
 @app.get("/webhook/pindo")
-def query_speech_rw() -> dict:
+def webhook_pindo() -> dict:
     print(request)
     return {"Hello": "World"}
 
