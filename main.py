@@ -4,7 +4,7 @@ from packages.translate import translator
 import json
 from haystack.file_converter import PDFToTextConverter
 from haystack.preprocessor import PreProcessor
-from haystack.document_store.faiss import FAISSDocumentStore
+from haystack.document_stores.faiss import FAISSDocumentStore
 from haystack.retriever import DensePassageRetriever
 from haystack.reader import FARMReader
 from haystack.pipeline import ExtractiveQAPipeline
