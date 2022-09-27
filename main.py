@@ -4,12 +4,12 @@ from flask import Flask, request
 from packages import pindo, stt
 from packages.translate import translator
 import json
-from haystack.file_converter import PDFToTextConverter
-from haystack.preprocessor import PreProcessor
-from haystack.document_stores.faiss import FAISSDocumentStore
-from haystack.retriever import DensePassageRetriever
-from haystack.reader import FARMReader
-from haystack.pipeline import ExtractiveQAPipeline
+#Haystack dependencies
+from haystack.utils import launch_es
+import time
+import os
+from haystack.document_stores import ElasticsearchDocumentStore
+from haystack.utils import clean_wiki_text, convert_files_to_docs
 
 try:
     with open('config.json') as config_file:
@@ -18,33 +18,14 @@ except FileNotFoundError:
     config = {}
 
 
-
-pdf_converter = PDFToTextConverter(remove_numeric_tables=True, valid_languages=["en"])
-converted = pdf_converter.convert(file_path = "docs\Justice_for_Children_Policy.pdf", meta = { "company": "Company_1", "processed": False })
-
-
-#Preprocessing
-preprocessor = PreProcessor(split_by="word",
- split_length=200,
- split_overlap=10)
-preprocessed = preprocessor.process(converted)
+launch_es()
+time.sleep(30)
 
 
-#Create document store
-document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
-document_store.delete_all_documents()
-document_store.write_documents(preprocessed)
 
-
-#Embendings
-retriever = DensePassageRetriever(document_store=document_store)
-reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2-distilled", use_gpu=False)
-document_store.update_embeddings(retriever)
-
-
-#Create Pipeline
-pipeline = ExtractiveQAPipeline(reader, retriever)
-
+# Get the host where Elasticsearch is running, default to localhost
+host = os.environ.get("ELASTICSEARCH_HOST", "localhost")
+document_store = ElasticsearchDocumentStore(host=host, username="", password="", index="document")
 
 
 #Start the app
