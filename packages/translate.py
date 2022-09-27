@@ -7,16 +7,16 @@ class translator:
     client = "?client=gtx&dt=t"
     dt = "&dt=t"
 
-    def __init__(self) -> None:
-        return None
-
-    def to_rw(self, text):
-        sl = "&sl=rw"
-        tl = "&tl=en"
-        r = requests.get(self.api_url+ self.client + self.dt + sl + tl + "&q=" + text)
-        return json.loads(r.text)[0][0][0]
-    def to_en(self, text):
+    #fROM English to Kinyarwanda
+    def to_rw(text):
         sl = "&sl=en"
         tl = "&tl=rw"
-        r = requests.get(self.api_url+ self.client + self.dt + sl + tl + "&q=" + text)
+        r = requests.get(translator.api_url+ translator.client + translator.dt + sl + tl + "&q=" + text)
+        return json.loads(r.text)[0][0][0]
+
+    #From Kinyarwanda to English
+    def to_en(text):
+        sl = "&sl=rw"
+        tl = "&tl=en"
+        r = requests.get(translator.api_url+ translator.client + translator.dt + sl + tl + "&q=" + text)
         return json.loads(r.text)[0][0][0]
