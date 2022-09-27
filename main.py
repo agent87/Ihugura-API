@@ -1,3 +1,5 @@
+import sys
+print(sys.executable)
 from flask import Flask, request
 from packages import pindo, stt
 from packages.translate import translator
