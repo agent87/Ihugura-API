@@ -35,8 +35,6 @@ document_store = ElasticsearchDocumentStore(host=host, username="", password="",
 docs = convert_files_to_docs(dir_path="docs/", clean_func=clean_wiki_text, split_paragraphs=True)
 
 
-print(docs[:3])
-
 # Now, let's write the dicts containing documents to our DB.
 document_store.write_documents(docs)
 
