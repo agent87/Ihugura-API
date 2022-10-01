@@ -28,7 +28,7 @@ time.sleep(30)
 
 # Get the host where Elasticsearch is running, default to localhost
 host = os.environ.get("ELASTICSEARCH_HOST", "localhost")
-document_store = ElasticsearchDocumentStore(host=host, username="", password="", index="document")
+document_store = ElasticsearchDocumentStore(host="0.0.0.0:9200", username="", password="", index="document")
 
 
 
