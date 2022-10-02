@@ -59,39 +59,38 @@ app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI')
 
 #INDEX
 @app.route("/")
-def root():
+async def root():
     return 'Welcome to the Ihugure Chatbot API!'
 
 #SPEECH ENABLED QUERY KINYARWANDA
 @app.route("/webhook/pindo")
-def webhook_pindo() -> dict:
+async def webhook_pindo() -> dict:
     print(request)
     return True
 
 #SPEECH ENABLED QUERY KINYARWANDA
-@app.route("/query/speech/rw")
-def query_speech_rw() -> dict:
-    speech_file = request.files['query']  #RW AUDIOFILE
-    text_query = stt.convert.to_text(speech_file) #SPEECH TO TEXT CONVERSION
+@app.route("/query/speech/rw", methods=['POST'])
+async def query_speech_rw() -> dict:
+    text_query = await stt.convert.to_text(request.files['query'] ) #SPEECH TO TEXT CONVERSION
     return {"Query": text_query}
 
 #SPEECH ENABLED QUERY ENGLISH
-@app.route("/query/speech/en")
-def query_speech_en() -> dict:
+@app.route("/query/speech/en", methods=['POST'])
+async def query_speech_en() -> dict:
     speech_file = request.files['query']  #ENG AUDIOFILE
     return {"Query": 'English'}
 
 #TEXT BASED QUERY KINYARWANDA
-@app.route("/query/text/rw")
-def query_text_rw() -> dict:
-    query_en = translator.to_en(request.args.get("query"))
+@app.route("/query/text/rw", methods=['POST'])
+async def query_text_rw() -> dict:
+    query_en = await translator.to_en(request.args.get("query"))
     return {"Query": query_en,
             "mobile": request.args.get("mobile")
     }
 
 #TEXT BASED QUERY ENGLISH
-@app.route("/query/text/en")
-def query_text_en() -> dict:
+@app.route("/query/text/en", methods=['POST'])
+async def query_text_en() -> dict:
     return {"Query": request.args.get("query"),
             "mobile": request.args.get("mobile")
     }
