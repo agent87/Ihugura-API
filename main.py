@@ -5,10 +5,8 @@ from packages import pindo, stt
 from packages.translate import translator
 import json
 #Haystack dependencies
-from haystack.utils import launch_es
-import time
 import os
-from haystack.document_stores import ElasticsearchDocumentStore
+from haystack.document_stores import InMemoryDocumentStore
 from haystack.utils import clean_wiki_text, convert_files_to_docs
 from haystack.nodes import BM25Retriever
 from haystack.nodes import FARMReader
@@ -21,14 +19,10 @@ except FileNotFoundError:
     config = {}
 
 
-launch_es()
-time.sleep(30)
 
 
+document_store = InMemoryDocumentStore()
 
-# Get the host where Elasticsearch is running, default to localhost
-host = os.environ.get("ELASTICSEARCH_HOST", "localhost")
-document_store = ElasticsearchDocumentStore(host=host, username="", password="", index="document")
 
 
 
