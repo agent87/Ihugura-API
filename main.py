@@ -44,9 +44,7 @@ reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=Fa
 
 pipe = ExtractiveQAPipeline(reader, retriever)
 
-# prediction = pipe.run(
-#     query="Who is the father of Arya Stark?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}}
-# )
+
 
 #Start the app
 app = Flask(__name__)
@@ -59,41 +57,43 @@ app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI')
 
 #INDEX
 @app.route("/")
-async def root():
+def root():
     return 'Welcome to the Ihugure Chatbot API!'
 
 #SPEECH ENABLED QUERY KINYARWANDA
 @app.route("/webhook/pindo")
-async def webhook_pindo() -> dict:
+def webhook_pindo() -> dict:
     print(request)
     return True
 
 #SPEECH ENABLED QUERY KINYARWANDA
 @app.route("/query/speech/rw", methods=['POST'])
-async def query_speech_rw() -> dict:
-    text_query = await stt.convert.to_text(request.files['query'] ) #SPEECH TO TEXT CONVERSION
-    return {"Query": text_query}
+def query_speech_rw() -> dict:
+    text_query = stt.convert.to_text(request.files['query'] ) #SPEECH TO TEXT CONVERSION
+    query_en = translator.to_en(text_query)
+    prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
+    return prediction
 
 #SPEECH ENABLED QUERY ENGLISH
 @app.route("/query/speech/en", methods=['POST'])
-async def query_speech_en() -> dict:
+def query_speech_en() -> dict:
     speech_file = request.files['query']  #ENG AUDIOFILE
     return {"Query": 'English'}
 
 #TEXT BASED QUERY KINYARWANDA
 @app.route("/query/text/rw", methods=['POST'])
-async def query_text_rw() -> dict:
-    query_en = await translator.to_en(request.args.get("query"))
-    return {"Query": query_en,
-            "mobile": request.args.get("mobile")
-    }
+def query_text_rw() -> dict:
+    query_en = translator.to_en(request.args.get("query"))
+    prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
+    return prediction
+    
 
 #TEXT BASED QUERY ENGLISH
 @app.route("/query/text/en", methods=['POST'])
-async def query_text_en() -> dict:
-    return {"Query": request.args.get("query"),
-            "mobile": request.args.get("mobile")
-    }
+def query_text_en() -> dict:
+    prediction = pipe.run(query=request.args.get("query") + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
+    return prediction
+    
 
 
 if __name__ =='__main__':  
