@@ -39,7 +39,7 @@ document_store.write_documents(docs)
 
 retriever = TfidfRetriever(document_store=document_store)
 
-reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
+reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=False)
 
 
 pipe = ExtractiveQAPipeline(reader, retriever)
