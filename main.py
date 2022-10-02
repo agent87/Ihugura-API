@@ -44,9 +44,9 @@ reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=Fa
 
 pipe = ExtractiveQAPipeline(reader, retriever)
 
-prediction = pipe.run(
-    query="Who is the father of Arya Stark?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}}
-)
+# prediction = pipe.run(
+#     query="Who is the father of Arya Stark?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}}
+# )
 
 #Start the app
 app = Flask(__name__)
