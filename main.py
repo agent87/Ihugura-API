@@ -1,5 +1,4 @@
 import sys
-print(sys.version)
 from flask import Flask, request
 from packages import pindo, stt
 from packages.translate import translator
@@ -8,7 +7,7 @@ import json
 import os
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.utils import clean_wiki_text, convert_files_to_docs
-from haystack.nodes import BM25Retriever
+from haystack.nodes import TfidfRetriever
 from haystack.nodes import FARMReader
 from haystack.pipelines import ExtractiveQAPipeline
 
@@ -36,7 +35,9 @@ document_store.write_documents(docs)
 # Load a  local model or any of the QA models on
 # Hugging Face's model hub (https://huggingface.co/models)
 
-retriever = BM25Retriever(document_store=document_store)
+
+
+retriever = TfidfRetriever(document_store=document_store)
 
 reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
 
