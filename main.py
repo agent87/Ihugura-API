@@ -5,6 +5,7 @@ from packages.translate import translator
 import json
 #Haystack dependencies
 import os
+import re
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.utils import clean_wiki_text, convert_files_to_docs
 from haystack.nodes import TfidfRetriever
@@ -24,12 +25,13 @@ document_store = InMemoryDocumentStore()
 
 
 
+#docs = convert_files_to_docs(dir_path="docs/", split_paragraphs=True)
+with open("docs/code_of_criminal_procedures.txt", "rb") as f:
+    text = re.sub('\t', '',f.read().decode('utf-8'))
 
-docs = convert_files_to_docs(dir_path="docs/", clean_func=clean_wiki_text, split_paragraphs=True)
+dicts = [{"content": text, 'meta': {'name': 'code_of_criminal_procedures'}}]
 
-
-# Now, let's write the dicts containing documents to our DB.
-document_store.write_documents(docs)
+document_store.write_documents(dicts)
 
 
 # Load a  local model or any of the QA models on
@@ -94,7 +96,6 @@ def query_text_en() -> dict:
     prediction = pipe.run(query=request.args.get("query") + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
     return prediction
     
-
 
 if __name__ =='__main__':  
     app.run(debug = True) 
