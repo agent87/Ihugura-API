@@ -74,7 +74,7 @@ def query_speech_rw() -> dict:
     text_query = stt.convert.to_text(request.files['query'] ) #SPEECH TO TEXT CONVERSION
     query_en = translator.to_en(text_query)
     prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
-    return {'prediction' : trans_prediction(prediction), 'speech_query':text_query}
+    return {'prediction' : prediction, 'speech_query':text_query}
 
 #SPEECH ENABLED QUERY ENGLISH
 @app.route("/query/speech/en", methods=['POST'])
@@ -89,7 +89,7 @@ def query_text_rw() -> dict:
     prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
     print(type(prediction))
     prediction
-    return trans_prediction(prediction)
+    return prediction
     
 
 #TEXT BASED QUERY ENGLISH
