@@ -87,6 +87,8 @@ def query_speech_en() -> dict:
 def query_text_rw() -> dict:
     query_en = translator.to_en(request.args.get("query"))
     prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
+    print(type(prediction))
+    prediction
     return trans_prediction(prediction)
     
 
