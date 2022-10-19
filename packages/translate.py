@@ -22,11 +22,10 @@ class translator:
         return json.loads(r.text)[0][0][0]
 
 
-def trans_prediction(prediction):
+def trans_prediction(response):
+    prediction = response.to_json()
     for index, answer in enumerate(prediction['answers']):
-        print(dir(answer))
-        print('-----------------')
-        #prediction['answers'][index]['answer'] = translator.to_rw(answer['answer'])
-        #prediction['answers'][index]['context'] = translator.to_rw(answer['context'])
+        prediction['answers'][index]['answer'] = translator.to_rw(answer['answer'])
+        prediction['answers'][index]['context'] = translator.to_rw(answer['context'])
     
     return prediction
