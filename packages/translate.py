@@ -24,7 +24,9 @@ class translator:
 
 def trans_prediction(prediction):
     for index, answer in enumerate(prediction['answers']):
-        print(answer)
+        print(answer['answer'])
+        print(answer['context'])
+        print('-----------------')
         #prediction['answers'][index]['answer'] = translator.to_rw(answer['answer'])
         #prediction['answers'][index]['context'] = translator.to_rw(answer['context'])
     
