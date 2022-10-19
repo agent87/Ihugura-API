@@ -94,7 +94,7 @@ def query_text_rw() -> dict:
 @app.route("/query/text/en", methods=['POST'])
 def query_text_en() -> dict:
     prediction = pipe.run(query=request.args.get("query") + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
-    return trans_prediction(prediction)
+    return prediction
     
 
 if __name__ =='__main__':  
