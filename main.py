@@ -1,7 +1,7 @@
 import sys
 from flask import Flask, request
 from packages import pindo, stt
-from packages.translate import translator
+from packages.translate import translator, trans_prediction
 import json
 #Haystack dependencies
 import os
@@ -74,27 +74,27 @@ def query_speech_rw() -> dict:
     text_query = stt.convert.to_text(request.files['query'] ) #SPEECH TO TEXT CONVERSION
     query_en = translator.to_en(text_query)
     prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
-    return prediction
+    return {'prediction' : trans_prediction(prediction), 'speech_query':text_query}
 
 #SPEECH ENABLED QUERY ENGLISH
 @app.route("/query/speech/en", methods=['POST'])
 def query_speech_en() -> dict:
     speech_file = request.files['query']  #ENG AUDIOFILE
-    return {"Query": 'English'}
+    return "English Speech is currently unavailable!"
 
 #TEXT BASED QUERY KINYARWANDA
 @app.route("/query/text/rw", methods=['POST'])
 def query_text_rw() -> dict:
     query_en = translator.to_en(request.args.get("query"))
     prediction = pipe.run(query=query_en + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
-    return prediction
+    return trans_prediction(prediction)
     
 
 #TEXT BASED QUERY ENGLISH
 @app.route("/query/text/en", methods=['POST'])
 def query_text_en() -> dict:
     prediction = pipe.run(query=request.args.get("query") + "?", params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 5}})
-    return prediction
+    return trans_prediction(prediction)
     
 
 if __name__ =='__main__':  

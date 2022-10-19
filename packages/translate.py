@@ -20,3 +20,11 @@ class translator:
         tl = "&tl=en"
         r = requests.get(translator.api_url+ translator.client + translator.dt + sl + tl + "&q=" + text)
         return json.loads(r.text)[0][0][0]
+
+
+def trans_prediction(prediction):
+    for index, answer in enumerate(prediction['answers']):
+        prediction['answers'][index]['answer'] = translator.to_rw(answer['answer'])
+        prediction['answers'][index]['context'] = translator.to_rw(answer['context'])
+    
+    return prediction
