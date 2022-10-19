@@ -1,4 +1,5 @@
-flask[async]
+git+https://github.com/deepset-ai/haystack.git
+flask
 gunicorn
 idna
 requests
