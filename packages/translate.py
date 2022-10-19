@@ -23,6 +23,7 @@ class translator:
 
 
 def trans_prediction(prediction):
+    prediction = dict(prediction)
     for index, answer in enumerate(prediction['answers']):
         prediction['answers'][index]['answer'] = translator.to_rw(answer.to_dict()['answer'])
         prediction['answers'][index]['context'] = translator.to_rw(answer.to_dict()['context'])
