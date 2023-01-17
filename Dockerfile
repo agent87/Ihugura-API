@@ -1,17 +1,21 @@
-# 
+# This file is used to build the docker image for the frontend
 FROM python:3.9
 
-# 
-WORKDIR /src
+#Set the working directory
+WORKDIR /home
 
-#
-COPY . /src
+#Install the requirements
+COPY requirements.txt .
 
-#
-COPY ./requirements.txt /src/requirements.txt
+#Upgrade pip
+RUN pip install --upgrade pip
 
-# 
-RUN pip install --no-cache-dir --upgrade -r /src/requirements.txt
+#Install the requirements
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 
-CMD ["gunicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+
+#Copy the app.py file
+COPY . .
+
+#Start the streamlit app
+CMD ["uvicorn", "haystack_api:app", "--host 0.0.0.0", "--port 80"]

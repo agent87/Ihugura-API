@@ -55,8 +55,7 @@ This is done by:
 We welcome any contribution to the website and community as a whole. Bellow is an introduction on how to get started.
 
 Contribution areas:
-* Content Creator: We look forward to onboarding a content creator for our blog.
-* Content Moderator: We look forward to onboarding a content creator for our blog.
+* Document Intergraion. We are looking for a way to integrate the documents into the chatbot.
 
 Please feel free to also suggest any other area you might be intrested to contribute
 
