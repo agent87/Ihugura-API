@@ -1,5 +1,5 @@
 # This file is used to build the docker image for the frontend
-FROM python:3.9
+FROM python:3.10.8
 
 #Set the working directory
 WORKDIR /home
@@ -12,7 +12,6 @@ RUN pip install --upgrade pip
 
 #Install the requirements
 RUN pip install --no-cache-dir -r requirements.txt
-
 
 #Copy the app.py file
 COPY . .

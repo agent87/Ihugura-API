@@ -1,4 +1,3 @@
-
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.utils import clean_wiki_text, convert_files_to_docs
 from haystack.nodes import TfidfRetriever
